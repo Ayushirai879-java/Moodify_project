@@ -18,6 +18,7 @@ import songRoutes from "./routes/song.route.js";
 import albumRoutes from "./routes/album.route.js";
 import statRoutes from "./routes/stat.route.js";
 import diaryRoutes from "./routes/diary.route.js";
+import likedsongRoutes from "./routes/likes.route.js";
 
 
 dotenv.config();
@@ -72,7 +73,7 @@ app.use("/api/songs", songRoutes);
 app.use("/api/albums", albumRoutes);
 app.use("/api/stats", statRoutes);
 app.use("/api/diary",diaryRoutes);
-
+app.use("/api/likes",likedsongRoutes);
 
 
 if (process.env.NODE_ENV === "production") {

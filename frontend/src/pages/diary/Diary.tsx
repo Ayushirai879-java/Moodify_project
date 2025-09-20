@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useDiaryStore } from "@/stores/useDiaryStore";
 import { DiaryEntry } from "@/types";
 import toast from "react-hot-toast";
+import Topbar from "@/components/Topbar";
 
 const moods = ["happy 😊", "sad 😔", "excited 😃", "angry 😡", "relaxed ☺️"];
 
@@ -49,6 +50,8 @@ export default function DiaryPage() {
   };
 
   return (
+    <main className='h-full rounded-lg bg-gradient-to-b from-zinc-800 to-zinc-900 overflow-hidden'>
+			<Topbar />
     <div className="max-w-3xl mx-auto p-6 bg-[#121212] text-gray-200 min-h-[80vh] rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4">My Diary</h2>
 
@@ -156,5 +159,6 @@ export default function DiaryPage() {
         <div className="text-gray-400">You have no diary entries yet.</div>
       )}
     </div>
+    </main>
   );
 }

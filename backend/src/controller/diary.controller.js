@@ -1,11 +1,7 @@
-// /backend/src/controller/diary.controller.js
 import { DiaryEntry } from "../models/diary.model.js";
-
-// Create diary entry
 export const createDiaryEntry = async (req, res) => {
   try {
     const { title, content, mood } = req.body;
-    // Using Clerk: user id attached on req.auth.userId by your auth middleware
     const userId = req.auth.userId;
     if (!userId) return res.status(401).json({ message: "Unauthorized" });
 
@@ -16,8 +12,6 @@ export const createDiaryEntry = async (req, res) => {
     return res.status(400).json({ message: error.message || "Failed to create entry" });
   }
 };
-
-// Get user's diary entries (optionally filter by mood)
 export const getDiaryEntries = async (req, res) => {
   try {
     const userId = req.auth.userId;
@@ -34,8 +28,6 @@ export const getDiaryEntries = async (req, res) => {
     return res.status(400).json({ message: error.message || "Failed to fetch entries" });
   }
 };
-
-// Update diary entry - only owner can update
 export const updateDiaryEntry = async (req, res) => {
   try {
     const entryId = req.params.id;
@@ -63,8 +55,6 @@ export const updateDiaryEntry = async (req, res) => {
     return res.status(400).json({ message: error.message || "Failed to update entry" });
   }
 };
-
-// Delete diary entry - only owner
 export const deleteDiaryEntry = async (req, res) => {
   try {
     const entryId = req.params.id;
