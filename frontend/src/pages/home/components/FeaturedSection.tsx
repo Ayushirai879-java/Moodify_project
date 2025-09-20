@@ -14,11 +14,8 @@ const FeaturedSection = () => {
 
     return (
         <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8'>
-            {featuredSongs.map((song) => { // <-- Use curly brace here
-                // Now you can safely declare constants here
+            {featuredSongs.map((song) => { 
                 const isCurrentSong = currentSong?._id === song._id;
-
-                // And then explicitly return your JSX
                 return (
                     <div
                         key={song._id}
@@ -36,12 +33,10 @@ const FeaturedSection = () => {
                         </div>
                           <div
                             className={clsx(
-                                // Your static classes for layout and overrides are preserved
                                 "flex items-center gap-3 pr-4 transition-opacity duration-300 [&>*]:!static [&>*]:!opacity-100 [&>*]:!translate-y-0 [&>button]:w-10 [&>button]:h-10 [&>button]:p-0 [&>button]:flex [&>button]:items-center [&>button]:justify-center",
-                                // Conditional classes for visibility
                                 {
-                                    "opacity-100": isCurrentSong, // Always visible if it's the current song
-                                    "opacity-0 group-hover:opacity-100": !isCurrentSong, // Otherwise, only visible on hover
+                                    "opacity-100": isCurrentSong, 
+                                    "opacity-0 group-hover:opacity-100": !isCurrentSong, 
                                 }
                             )}
                         >
@@ -50,7 +45,7 @@ const FeaturedSection = () => {
                         </div>
                     </div>
                 );
-            })} {/* <-- And a closing curly brace here */}
+            })} 
         </div>
     );
 };
