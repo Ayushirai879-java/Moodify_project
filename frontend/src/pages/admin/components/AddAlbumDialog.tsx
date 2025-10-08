@@ -25,7 +25,7 @@ const AddAlbumDialog = () => {
 			setImageFile(file);
 		}
 	};
-
+	
 	const handleSubmit = async () => {
 		setIsLoading(true);
 

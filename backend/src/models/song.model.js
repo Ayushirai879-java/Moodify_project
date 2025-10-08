@@ -27,6 +27,11 @@ const songSchema = new mongoose.Schema(
 			ref: "Album",
 			required: false,
 		},
+		mood: {
+			type: String,
+			enum: ["Happy", "Sad", "Chill", "Energetic", "Romantic"],
+			required: true,
+		},
 	},
 	{ timestamps: true }
 );

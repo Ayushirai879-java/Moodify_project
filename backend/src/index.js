@@ -20,7 +20,6 @@ import statRoutes from "./routes/stat.route.js";
 import diaryRoutes from "./routes/diary.route.js";
 import likedsongRoutes from "./routes/likes.route.js";
 
-
 dotenv.config();
 
 const __dirname = path.resolve();
@@ -50,7 +49,6 @@ app.use(
 	})
 );
 
-// cron jobs
 const tempDir = path.join(process.cwd(), "tmp");
 cron.schedule("0 * * * *", () => {
 	if (fs.existsSync(tempDir)) {

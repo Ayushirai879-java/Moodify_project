@@ -36,7 +36,6 @@ export default function LikedSongsPage() {
 			{songs.length === 0 ? (
 				<p>You haven't liked any songs yet.</p>
 			) : (<div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 mb-8'>
-				<ul className="space-y-2">
 					{songs.map((song) => (
 						<div key={song._id} className='flex items-center bg-zinc-700/50 rounded-md overflow-hidden
          hover:bg-zinc-700/50 transition-colors group cursor-pointer relative'
@@ -54,7 +53,7 @@ export default function LikedSongsPage() {
 				</div>
 
 					))}
-				</ul></div>
+				 </div>
 			)}
 		</div>
         </main>

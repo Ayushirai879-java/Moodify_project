@@ -1,15 +1,27 @@
 import { Button } from "@/components/ui/button";
+import { axiosInstance } from "@/lib/axios";
 import { usePlayerStore } from "@/stores/usePlayerStore";
 import { Song } from "@/types";
+import { useAuth } from "@clerk/clerk-react";
 import { Pause, Play } from "lucide-react";
 
 const PlayButton = ({ song }: { song: Song }) => {
 	const { currentSong, isPlaying, setCurrentSong, togglePlay } = usePlayerStore();
+	const {getToken}=useAuth();
 	const isCurrentSong = currentSong?._id === song._id;
 
-	const handlePlay = () => {
+	const handlePlay =async () => {
 		if (isCurrentSong) togglePlay();
-		else setCurrentSong(song);
+		// else setCurrentSong(song);
+		 else {
+			setCurrentSong(song);
+			const token = await getToken();
+			if (token) {
+				axiosInstance.post(`/songs/${song._id}/play`, {}, {
+					headers: { Authorization: `Bearer ${token}` }
+				});
+			}
+		}
 	};
 
 	return (

@@ -13,14 +13,16 @@ interface MusicStore {
 	madeForYouSongs: Song[];
 	trendingSongs: Song[];
 	stats: Stats;
+	showAllFeatured: boolean; 
 
 	fetchAlbums: () => Promise<void>;
 	fetchAlbumById: (id: string) => Promise<void>;
-	fetchFeaturedSongs: () => Promise<void>;
+	setShowAllFeatured: (show: boolean) => void;
+	fetchFeaturedSongs: (showAll?: boolean) => Promise<void>; 
 	fetchMadeForYouSongs: () => Promise<void>;
 	fetchTrendingSongs: () => Promise<void>;
 	fetchStats: () => Promise<void>;
-	fetchSongs: () => Promise<void>;
+	fetchSongs: (mood?: string) => Promise<void>;
 	deleteSong: (id: string) => Promise<void>;
 	deleteAlbum: (id: string) => Promise<void>;
 }
@@ -40,6 +42,8 @@ export const useMusicStore = create<MusicStore>((set) => ({
 		totalUsers: 0,
 		totalArtists: 0,
 	},
+	showAllFeatured: false,
+	setShowAllFeatured: (show: boolean) => set({ showAllFeatured: show }),
 
 	deleteSong: async (id) => {
 		set({ isLoading: true, error: null });
@@ -76,10 +80,14 @@ export const useMusicStore = create<MusicStore>((set) => ({
 		}
 	},
 
-	fetchSongs: async () => {
+	fetchSongs: async (mood?:string) => {
 		set({ isLoading: true, error: null });
 		try {
-			const response = await axiosInstance.get("/songs");
+			let url = "/songs";
+			if (mood) {
+				url += `?mood=${mood.toLowerCase()}`;
+			}
+			const response = await axiosInstance.get(url);
 			set({ songs: response.data });
 		} catch (error: any) {
 			set({ error: error.message });
@@ -125,11 +133,20 @@ export const useMusicStore = create<MusicStore>((set) => ({
 		}
 	},
 
-	fetchFeaturedSongs: async () => {
+	fetchFeaturedSongs: async (showAll?: boolean) => {
 		set({ isLoading: true, error: null });
 		try {
-			const response = await axiosInstance.get("/songs/featured");
-			set({ featuredSongs: response.data });
+			let url = "/songs/featured";
+			if (showAll) {
+				url += "?showAll=true";
+			}
+			const response = await axiosInstance.get(url);
+			if (showAll) {
+				set({ songs: response.data });
+			} 
+			else {
+				set({ featuredSongs: response.data });
+			}
 		} catch (error: any) {
 			set({ error: error.response.data.message });
 		} finally {

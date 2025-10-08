@@ -21,6 +21,7 @@ interface NewSong {
 	artist: string;
 	album: string;
 	duration: string;
+	mood:string;
 }
 
 const AddSongDialog = () => {
@@ -33,6 +34,7 @@ const AddSongDialog = () => {
 		artist: "",
 		album: "",
 		duration: "0",
+		mood:"",
 	});
 
 	const [files, setFiles] = useState<{ audio: File | null; image: File | null }>({
@@ -47,8 +49,8 @@ const AddSongDialog = () => {
 		setIsLoading(true);
 
 		try {
-			if (!files.audio || !files.image) {
-				return toast.error("Please upload both audio and image files");
+			if (!files.audio || !files.image || !newSong.mood) {
+				return toast.error("Please upload both audio and image files or include the mood.");
 			}
 
 			const formData = new FormData();
@@ -56,6 +58,7 @@ const AddSongDialog = () => {
 			formData.append("title", newSong.title);
 			formData.append("artist", newSong.artist);
 			formData.append("duration", newSong.duration);
+			formData.append("mood", newSong.mood);
 			if (newSong.album && newSong.album !== "none") {
 				formData.append("albumId", newSong.album);
 			}
@@ -74,6 +77,7 @@ const AddSongDialog = () => {
 				artist: "",
 				album: "",
 				duration: "0",
+				mood:"",
 			});
 
 			setFiles({
@@ -81,6 +85,7 @@ const AddSongDialog = () => {
 				image: null,
 			});
 			toast.success("Song added successfully");
+			setSongDialogOpen(false);
 		} catch (error: any) {
 			toast.error("Failed to add song: " + error.message);
 		} finally {
@@ -184,6 +189,25 @@ const AddSongDialog = () => {
 							className='bg-zinc-800 border-zinc-700'
 						/>
 					</div>
+					
+					<div className='space-y-2'>
+                        <label className='text-sm font-medium'>Mood</label>
+                        <Select
+                            value={newSong.mood}
+                            onValueChange={(value) => setNewSong({ ...newSong, mood: value })}
+                        >
+                            <SelectTrigger className='bg-zinc-800 border-zinc-700'>
+                                <SelectValue placeholder='Select a mood' />
+                            </SelectTrigger>
+                            <SelectContent className='bg-zinc-800 border-zinc-700'>
+                                <SelectItem value='Happy'>😍 Happy</SelectItem>
+                                <SelectItem value='Sad'>😢 Sad</SelectItem>
+                                <SelectItem value='Chill'>😎 Chill</SelectItem>
+                                <SelectItem value='Energetic'>🔥 Energetic</SelectItem>
+                                <SelectItem value='Romantic'>❤️ Romantic</SelectItem>
+                            </SelectContent>
+                        </Select>
+                    </div>
 
 					<div className='space-y-2'>
 						<label className='text-sm font-medium'>Album (Optional)</label>
