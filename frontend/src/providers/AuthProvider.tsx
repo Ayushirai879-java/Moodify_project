@@ -35,7 +35,6 @@ const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		};
 
 		initAuth();
-
 		// clean up
 		return () => disconnectSocket();
 	}, [getToken, userId, checkAdminStatus, initSocket, disconnectSocket]);

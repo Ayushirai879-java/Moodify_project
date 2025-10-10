@@ -4,7 +4,6 @@ import StatsCard from "./StatsCard";
 
 const DashboardStats = () => {
 	const { stats } = useMusicStore();
-
 	const statsData = [
 		{
 			icon: ListMusic,
@@ -35,7 +34,6 @@ const DashboardStats = () => {
 			iconColor: "text-sky-500",
 		},
 	];
-
 	return (
 		<div className='grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-8 '>
 			{statsData.map((stat) => (
