@@ -111,6 +111,6 @@ Clerk (Authentication & user management)
 📖 Personal Diary
 ![Diary](./screenshots/dairy.png)
 👨‍💼 Admin Dashboard
-![Admin Dashboard](./screenshots/admin.png)
+![Admin Dashboard](./screenshots/admin_dashboard.png)
 Real-Time Listening Activity
-![Listening Activity](./screenshots/lsitening.png)
+![Listening Activity](./screenshots/listening.png)
